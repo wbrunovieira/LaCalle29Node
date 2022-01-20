@@ -3,6 +3,7 @@ import usersRouter from './users.routes';
 
 const routes = Router();
 
+
 routes.use('/users', usersRouter);
 
 routes.get('/', (request: Request, response: Response) => {

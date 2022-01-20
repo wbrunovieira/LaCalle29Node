@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/node": "^17.0.10",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.2",
     "pg": "^8.7.1",
