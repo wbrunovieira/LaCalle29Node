@@ -4,22 +4,24 @@ import { response, request, Router } from 'express';
 
 import CreateAdressService from '../services/CreateAdressService';
 
-//import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import ensureAuthenticated from '../middleware/ensureAuthenticated';
 
 const adressRouter = Router();
 
-interface Adress {
-    adress: string;
-    adress_complement: string;
-    zip: string;
-    zone?: string;
-    city: string;
-    obs?: string;
-}
+adressRouter.use(ensureAuthenticated);
 
 adressRouter.post('/', async (request, response) => {
+
+    interface Adress {
+        adress: string;
+        adress_complement: string;
+        zip: string;
+        zone: string;
+        city: string;
+        obs?: string;
+    }
     try {
-        const { adress, adress_complement, zip, zone, city, obs} = request.body;
+        const { adress, adress_complement, zip, zone, city, obs}:Adress = request.body;
 
         const createAdress = new CreateAdressService();
 
