@@ -10,8 +10,7 @@ const adressRouter = Router();
 
 adressRouter.use(ensureAuthenticated);
 
-adressRouter.post('/', async (request, response) => {
-
+adressRouter.post('/', ensureAuthenticated, async (request, response) => {
     interface Adress {
         adress: string;
         adress_complement: string;
@@ -19,17 +18,26 @@ adressRouter.post('/', async (request, response) => {
         zone: string;
         city: string;
         obs?: string;
+        user_id: string;
     }
     try {
-        const { adress, adress_complement, zip, zone, city, obs}:Adress = request.body;
+        
+        const { adress, adress_complement, zip, zone, city, obs }: Adress =
+            request.body;
 
         const createAdress = new CreateAdressService();
 
         const newAdress: Adress = await createAdress.execute({
-            adress, adress_complement, zip, zone, city, obs,
+            user_id: request.user.id,
+            adress,
+            adress_complement,
+            zip,
+            zone,
+            city,
+            obs,
         });
         return response.json(newAdress);
-    } catch (err:any) {
+    } catch (err: any) {
         return response.status(400).json({ error: err.message });
     }
 });
