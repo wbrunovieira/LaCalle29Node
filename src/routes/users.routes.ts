@@ -16,7 +16,7 @@ interface User {
 }
 
 usersRouter.post('/', async (request, response) => {
-    try {
+   
         const { name, email, phone, password } = request.body;
 
         const createUser = new CreateUserService();
@@ -27,10 +27,7 @@ usersRouter.post('/', async (request, response) => {
             phone,
             password,
         });
-        return response.json(user);
-    } catch (err:any) {
-        return response.status(400).json({ error: err.message });
-    }
+
 });
 
 export default usersRouter;

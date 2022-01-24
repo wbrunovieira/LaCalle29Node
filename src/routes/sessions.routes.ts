@@ -13,7 +13,7 @@ interface User {
 }
 
 sessionsRouter.post('/', async (request, response) => {
-   try {
+  
     const { email, password }:User = request.body;
 
     const authenticateUser = new AuthenticateUserService();
@@ -27,9 +27,7 @@ sessionsRouter.post('/', async (request, response) => {
 
     return response.json( {user, token} );
 
-   } catch(err:any) {
-       return response.status(400).json({ error: err.message });
-   }
+
 })
 
 export default sessionsRouter;

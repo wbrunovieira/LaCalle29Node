@@ -22,7 +22,7 @@ adressRouter.post('/', ensureAuthenticated, async (request, response) => {
         obs?: string;
         user_id: string;
     }
-    try {
+    
 
         const { adress, adress_complement, zip, zone, city, obs }: Adress =
             request.body;
@@ -39,9 +39,7 @@ adressRouter.post('/', ensureAuthenticated, async (request, response) => {
             obs,
         });
         return response.json(newAdress);
-    } catch (err: any) {
-        return response.status(400).json({ error: err.message });
-    }
+
 });
 
 adressRouter.get('/', ensureAuthenticated, async (request, response) => {
