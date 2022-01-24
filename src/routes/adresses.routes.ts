@@ -1,4 +1,6 @@
 import { response, request, Router } from 'express';
+import { getRepository, getConnection } from 'typeorm';
+import Adress from '../models/Adresses';
 
 //import uploadConfig from '../config/upload';
 
@@ -21,7 +23,7 @@ adressRouter.post('/', ensureAuthenticated, async (request, response) => {
         user_id: string;
     }
     try {
-        
+
         const { adress, adress_complement, zip, zone, city, obs }: Adress =
             request.body;
 
@@ -41,5 +43,14 @@ adressRouter.post('/', ensureAuthenticated, async (request, response) => {
         return response.status(400).json({ error: err.message });
     }
 });
+
+adressRouter.get('/', ensureAuthenticated, async (request, response) => {
+    const userRepository = getRepository(Adress);
+
+    const adresses = await userRepository.find()
+
+    return response.json(adresses)
+})
+
 
 export default adressRouter;
