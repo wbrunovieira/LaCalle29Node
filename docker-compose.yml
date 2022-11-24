@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+
+  database:
+    image: postgres
+    container_name: database_lacalle29
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=lacalle29
+    volumes:
+      - pgdata:/data/postgres
+
+
+  app:
+    build: .
+    container_name: lacalle29
+    ports:
+      - 3333:3333
+    volumes:
+      - .:/usr/app
+
+    depends_on:
+      - database
+
+
+volumes:
+   pgdata:
+    driver: local
